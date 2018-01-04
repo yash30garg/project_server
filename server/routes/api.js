@@ -27,6 +27,9 @@ let response = {
     message: null
 };
 
+app.get("/", (req, res) => {
+    res.send("Server is Running .!!. Have Fun Coding ...!!!");
+});
 // Get users
 router.get('/UsersInfo', (req, res) => {
     MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {

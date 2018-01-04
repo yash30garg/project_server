@@ -27,7 +27,7 @@ let response = {
     message: null
 };
 
-app.get("/", (req, res) => {
+router.get("/", (req, res) => {
     res.send("Server is Running .!!. Have Fun Coding ...!!!");
 });
 // Get users

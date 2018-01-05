@@ -3,6 +3,7 @@ const router = express.Router();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 var User = require('../../models/user')
+var users, books;
 
 // Connect
 const connection = (closure) => {
@@ -42,7 +43,7 @@ router.get('/UsersInfo', (req, res) => {
             .toArray()
             .then((UsersInfo) => {
                 response.data = UsersInfo;
-                res.json(response);
+                res.json(response.data[0].Users);
             })
             .catch((err) => {
                 sendError(err, res);
@@ -60,7 +61,7 @@ router.get('/Books', (req, res) => {
             .toArray()
             .then((Books) => {
                 response.data = Books;
-                res.json(response);
+                res.json(response.data[0].booksArray);
             })
             .catch((err) => {
                 sendError(err, res);

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt')
-var users = require('http://limsreactapi.azurewebsites.net/api/UsersInfo')
-var books = require('http://limsreactapi.azurewebsites.net/api/Books')
+var users = require('../server/routes/api')
+var books = require('../server/routes/api')
 
 var UserSchema = new mongoose.Schema({
   email: {
@@ -24,8 +24,8 @@ var UserSchema = new mongoose.Schema({
 
 //authenticate input against database
 UserSchema.statics.authenticate = function (email, password, callback) {
-    console.log(users)
-  User.findOne({ users: email })
+    
+  User.findOne({ email: email })
     .exec(function (err, user) {
       if (err) {
         return callback(err)

@@ -62,7 +62,7 @@ router.get('/Books', (req, res) => {
             .toArray()
             .then((Books) => {
                 response.data = Books;
-                res.json(response.data[0].booksArray);
+                res.json(response.data[0]);
             })
             .catch((err) => {
                 sendError(err, res);
@@ -93,6 +93,8 @@ router.post('/', function (req, res, next) {
                         if (resp.length >= 1) {
                             console.log("Success")
                         return res.redirect('http://limsreact.azurewebsites.net/home')
+                        // return res.redirect('http://localhost:3001/home')
+                        
                     }
                     else {
                         console.log("Failed")

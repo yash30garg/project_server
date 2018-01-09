@@ -92,8 +92,8 @@ router.post('/', function (req, res, next) {
                         console.log(resp.length,res)
                         if (resp.length >= 1) {
                             console.log("Success")
-                        return res.redirect('http://limsreact.azurewebsites.net/home')
-                        // return res.redirect('http://localhost:3001/home')
+                        return res.redirect('http://limsreact.azurewebsites.net/#/home')
+                        // return res.redirect('http://localhost:3001/#/home')
                         
                     }
                     else {

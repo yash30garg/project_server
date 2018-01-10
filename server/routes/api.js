@@ -44,7 +44,7 @@ router.get('/UsersInfo', (req, res) => {
             .toArray()
             .then((UsersInfo) => {
                 response.data = UsersInfo;
-                res.json(response.data[0].Users);
+                res.json(response.data[0].Users``);
             })
             .catch((err) => {
                 sendError(err, res);

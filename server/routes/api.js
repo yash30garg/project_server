@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const bodyParser = require('body-parser')
+const  app = express();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
-var User = require('../../models/user')
+var User = require('../../model/user')
 var users, books, db, resp;
 
 // Connect
@@ -16,6 +18,7 @@ const connection = (closure) => {
     });
 };
 
+app.use(bodyParser.json());
 // Error handling
 const sendError = (err, res) => {
     response.status = 501;
@@ -35,16 +38,16 @@ router.get("/", (req, res) => {
 });
 // Get users
 router.get('/UsersInfo', (req, res) => {
-    MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
-        // MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+    // MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
+        MongoClient.connect('mongodb://localhost:27017', (err, client) => {
 
-        var db = client.db('lims')
-        db.collection('UsersInfo')
+        var db = client.db('limsr')
+        db.collection('users')
             .find()
             .toArray()
             .then((UsersInfo) => {
                 response.data = UsersInfo;
-                res.json(response.data[0].Users);
+                res.json(response.data);
             })
             .catch((err) => {
                 sendError(err, res);
@@ -53,16 +56,16 @@ router.get('/UsersInfo', (req, res) => {
 });
 
 router.get('/Books', (req, res) => {
-    MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
-        // MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+    // MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
+        MongoClient.connect('mongodb://localhost:27017', (err, client) => {
 
-        var db = client.db('lims')
-        db.collection('Books')
+        var db = client.db('limsr')
+        db.collection('books')
             .find()
             .toArray()
             .then((Books) => {
                 response.data = Books;
-                res.json(response.data[0]);
+                res.json(response.data);
             })
             .catch((err) => {
                 sendError(err, res);
@@ -74,47 +77,78 @@ router.get('/Books', (req, res) => {
 
 router.post('/', function (req, res, next) {
 
-    if (req.body.logemail && req.body.logpassword) {
+    if (req.body.email && req.body.password) {
         // console.log(req.body.logemail,req.body.logpassword)
-        MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
-            // MongoClient.connect('mongodb://localhost:27017', (err, client) => {
-
-            var db = client.db('lims')
-            db.collection('UsersInfo')
-                .find()
+        // MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
+            // router.get('/login',(req,res)=> {
+            MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+                var db = client.db('limsr')
+                db.collection('users')
+                .find({"email" : req.body.email,"password" : req.body.password})
                 .toArray()
-                .then((UsersInfo) => {
-                    response.data = UsersInfo;
-                    // console.log("response",response.data[0].Users)
-                    resp = response.data[0].Users.filter((user) =>
-                    // console.log(user.user.email, user.user.password)
-                        (user.user.email === req.body.logemail) && (user.user.password === req.body.logpassword))
-                        console.log(resp.length,res)
-                        if (resp.length >= 1) {
-                            console.log("Success")
-                        return res.redirect('http://limsreact.azurewebsites.net/#/home')
-                        // return res.redirect('http://localhost:3001/#/home')
+                .then((aa) => {
+                    if(aa!="") {
+                    console.log(aa)
+                    response.data = aa;
+                    response.status = 200;
+                    response.message = "success"
+                    console.log(response)
+                    res.json(response)
+                    // res.redirect('http://localhost:3001/#/home')
+                }
+                else {
+                    // console.log("Failed")
+                    //     var err = new Error('Enter Valid Email and Password');
+                    //     err.status = 400;
+                    //     return next(err);
+                    response.status = 400;
+                    response.message = "Enter Valid Email and Password";
+                    res.json(response);
+                }
+                })
+                
+                // .then((result) => {
+                    // if(results!=="")
+                    // {
+                    //     // res.json(result);
+                    //     res.redirect('http://localhost:3001/#/home');
+                    // }
+                    // else
+                    // {
+                    //     console.log("failed")
+                    // }
+                // })
+            // var db = client.db('limsr')
+            // db.collection('users')
+            //     .find()
+            //     .toArray()
+            //     .then((UsersInfo) => {
+            //         console.log(UsersInfo)
+            //         response.data = UsersInfo;
+            //         console.log("response",response.data)
+            //         resp = response.data.filter((user) =>
+            //         // console.log(user.user.email, user.user.password)
+            //             (user.email === req.body.logemail) && (user.password === req.body.logpassword))
+            //             // console.log(resp.length,res)
+            //             if (resp.length >= 1) {
+            //                 console.log("Success")
+            //             // return res.redirect('http://limsreact.azurewebsites.net/#/home')
+            //             return res.redirect('http://localhost:3001/#/home')
                         
-                    }
-                    else {
-                        console.log("Failed")
-                        var err = new Error('Enter Valid Email and Password');
-                        err.status = 400;
-                        return next(err);
-                    }
-                    // .filter((user)=> {
-                    //         if(user.email===req.body.logemail&&user.password===req.body.logpassword)
-                    //         {
-                    //             return res.redirect('http://localhost:3001/home')
-                    //         }
-                    //     } )
-                        // res.json(response.data[0].booksArray);
-                    })
+            //         }
+            //         else {
+            //             console.log("Failed")
+            //             var err = new Error('Enter Valid Email and Password');
+            //             err.status = 400;
+            //             return next(err);
+            //         }
+            //         })
                     
                     // .catch((err) => {
                     //     sendError(err, res);
                     // });
                 });
+            // });
                  
             // User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
             //   if (error || !user) {
@@ -127,9 +161,12 @@ router.post('/', function (req, res, next) {
             //   }
             // });
         } else {
-                var err = new Error('All fields required.');
-                err.status = 400;
-                return next(err);
+                // var err = new Error('All fields required.');
+                // err.status = 400;
+                // return next(err);
+                response.status = 400;
+                response.message = "All fields required";
+                res.json(response);
             }
 })
 

@@ -31,9 +31,9 @@ app.use(function(req, res, next) {
 // API location
 app.use('/api', api);
 
-//importing route
-var routes = require('./Routes/admin_login_Routes'); //importing route
-routes(app); //register the route
+// //importing route
+// var routes = require('./Routes/admin_login_Routes'); //importing route
+// routes(app); //register the route
 
 
 //Set Port

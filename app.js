@@ -4,8 +4,8 @@ var mongoose = require('mongoose');
 const path = require('path');
 const http = require('http');
 const app = express();
-const Admin = require('./Models/admin_login_Model');
-const User = require('./Models/user_Model')
+// const Admin = require('./Models/admin_login_Model');
+// const User = require('./Models/user_Model')
 
 // API file for interacting with MongoDB
 const api = require('./server/routes/api');

@@ -38,11 +38,11 @@ router.get("/", (req, res) => {
 });
 // Get users
 router.get('/UsersInfo', (req, res) => {
-    // MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
-        MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+    MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
+        // MongoClient.connect('mongodb://localhost:27017', (err, client) => {
 
-        var db = client.db('limsr')
-        db.collection('users')
+        var db = client.db('lims')
+        db.collection('UsersInfo')
             .find()
             .toArray()
             .then((UsersInfo) => {
@@ -56,11 +56,11 @@ router.get('/UsersInfo', (req, res) => {
 });
 
 router.get('/Books', (req, res) => {
-    // MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
-        MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+    MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
+        // MongoClient.connect('mongodb://localhost:27017', (err, client) => {
 
-        var db = client.db('limsr')
-        db.collection('books')
+        var db = client.db('lims')
+        db.collection('Books')
             .find()
             .toArray()
             .then((Books) => {
@@ -79,11 +79,11 @@ router.post('/', function (req, res, next) {
 
     if (req.body.email && req.body.password) {
         // console.log(req.body.logemail,req.body.logpassword)
-        // MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
+        MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {
             // router.get('/login',(req,res)=> {
-            MongoClient.connect('mongodb://localhost:27017', (err, client) => {
-                var db = client.db('limsr')
-                db.collection('users')
+            // MongoClient.connect('mongodb://localhost:27017', (err, client) => {
+                var db = client.db('lims')
+                db.collection('UsersInfo')
                 .find({"email" : req.body.email,"password" : req.body.password})
                 .toArray()
                 .then((aa) => {

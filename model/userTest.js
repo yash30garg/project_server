@@ -53,5 +53,5 @@ var UserSchema = new Schema({
 });
 
 // var UserTest = mongoose.model('Users', UserSchema, 'Users' );
-var UserTest = mongoose.model('Users', UserSchema, 'limsReactUsers' );
+var UserTest = mongoose.model('Users', UserSchema, 'limsReact' );
 module.exports = UserTest;

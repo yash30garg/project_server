@@ -45,8 +45,8 @@ app.use(function(req, res, next) {
 
 // API location
 app.use('/api', api);
-app.use('/borrowedBooks', borrowedBooks);
-app.use('/user', user);
+// app.use('/borrowedBooks', borrowedBooks);
+// app.use('/user', user);
 
 // //importing route
 // var routes = require('./Routes/admin_login_Routes'); //importing route

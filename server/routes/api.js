@@ -1,11 +1,15 @@
 const express = require('express');
-const router = express.Router();
+// const router = express();
 const bodyParser = require('body-parser')
 const  app = express();
 const MongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
 var User = require('../../model/user')
 var users, books, db, resp;
+var UserTest = require('../../model/userTest');
+var router=express.Router();
+var cors = require('cors');
+router.use(cors());
 
 // Connect
 const connection = (closure) => {
@@ -33,9 +37,24 @@ let response = {
     message: null
 };
 
+
 router.get("/", (req, res) => {
     res.send("Server is Running .!!. Have Fun Coding ...!!!");
 });
+
+
+// router.put("/deleteBook", (req, res) => {
+//     // console.log(req.body)
+//     // UserTest.findOneAndUpdate({mid:req.body.mid},{$pull:{booksArray:{details:{title:"New Book"}}}},{ multi: true })
+//     UserTest.update({mid:req.body.mid},{$pull:{booksArray:{isbn:req.body.isbn}}})
+//     // UserTest.find({mid:"1042748"})
+// // UserTest.findOneAndUpdate({ mid: req.body.mid }, {$push:{booksArray:req.body.item}}, function(err, user) {})
+// .then((user)=>{
+//     res.json(user); 
+// });
+// });
+
+
 // Get users
 router.get('/UsersInfo', (req, res) => {
     MongoClient.connect('mongodb://mongosql.westus2.cloudapp.azure.com', (err, client) => {

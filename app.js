@@ -47,7 +47,7 @@ app.use(function(req, res, next) {
 app.use('/api', api);
 app.use('/borrowedBooks', borrowedBooks);
 app.use('/user', user);
-
+app.use('/wishlist',wishlist);
 // //importing route
 // var routes = require('./Routes/admin_login_Routes'); //importing route
 // routes(app); //register the route

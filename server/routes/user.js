@@ -13,6 +13,7 @@ router.post("/addUser",(req,res)=>{
             UserTest.create({"mid":req.body.mid,"name":req.body.name,"email":req.body.email,"role":req.body.role,"borrowedBooks":req.body.borrowedBooks,"wishlist":req.body.wishlist})
             .then((user)=>{
                 console.log("created user");
+                console.log(user);
                 res.json(user)
             })
             .catch((error)=>{
@@ -23,7 +24,8 @@ router.post("/addUser",(req,res)=>{
             }
             else{
                 console.log("User Found")
-                res.json(user)
+
+                res.json("User Exists")
             }
         // res.json(user);
     })

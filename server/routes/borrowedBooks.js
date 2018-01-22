@@ -6,6 +6,13 @@ var router=express.Router();
 var cors = require('cors');
 router.use(cors());
 
+
+let response = {
+    status: 200,
+    data: [],
+    message: null
+};
+
 router.put("/addBook", (req, res) => {
     // console.log(req.body)
     UserTest.findOneAndUpdate({mid:req.body.mid},{$push:{borrowedBooks:req.body.item}})
@@ -21,17 +28,28 @@ res.json(error)
 })
 });
 
-router.post("/getBooks", (req, res) => {
-    UserTest.findOne({mid:req.body.mid})
+router.post("/getBooks", function (req, res, next){
+    // console.log(req.body)'
+    UserTest.findOne({"mid":req.body.mid})
+    // UserTest.find({mid:"1042748"})
+// UserTest.findOneAndUpdate({ mid: req.body.mid }, {$push:{booksArray:req.body.item}}, function(err, user) {})
 .then((user)=>{
-    console.log("values")
-    res.json(user.borrowedBooks); 
+    // console.log(user)
+    response.data=user.borrowedBooks;
+    // console.log("found")
+    // console.log(response.data)
+    // user.borrowedBooks.map((book)=>{
+    //     UserTest.findOne({books})
+    //     console.log(book.isbn)
+    // })
+    res.json(response)
 })
 .catch((error)=>{
     console.log("error")
 res.json(error)
 })
 });
+
 
 router.put("/deleteBook", (req, res) => {
     // console.log(req.body)

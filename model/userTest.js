@@ -23,6 +23,18 @@ var UserSchema = new Schema({
     title:{
       type:String
     },
+    author:{
+      type:String
+    },
+    publisher:{
+      type:String
+    },
+    rating:{
+      type:Number
+    },
+    url:{
+      type:String
+    },
     borrowedDate:{
       type:String
     },
@@ -40,5 +52,6 @@ var UserSchema = new Schema({
   }]
 });
 
-var UserTest = mongoose.model('Users', UserSchema, 'Users' );
+// var UserTest = mongoose.model('Users', UserSchema, 'Users' );
+var UserTest = mongoose.model('Users', UserSchema, 'limsReactUsers' );
 module.exports = UserTest;

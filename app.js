@@ -23,7 +23,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const borrowedBooks=require('./server/routes/borrowedBooks');
 const user=require('./server/routes/user');
-
+const wishlist=require('./server/routes/wishlist');
 
 
 // mongoose.Promise = global.Promise;

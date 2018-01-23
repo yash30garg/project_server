@@ -8,10 +8,10 @@ router.use(cors());
 
 //Adding a book to wishlist
 router.put("/addWBook",(req,res)=>{
-  UserTest.findOneAndUpdate({mid:req.body.mid},{$push:{wishlist:req.body.book}})
+  UserTest.findOneAndUpdate({mid:req.body.mid},{$push:{wishlist:req.body.book}},{new:true})
   .then((user)=>{
       console.log("added Book");
-      res.json(user);
+      res.json(user.wishlist);
   })  
   .catch((err)=>{
       console.log("Error occurred");
@@ -20,12 +20,14 @@ router.put("/addWBook",(req,res)=>{
 });
 
 
+
 //Removing a book from wishlist
 router.put("/removeWishBook",(req,res)=>{
-  UserTest.update({mid:req.body.mid},{$pull:{wishlist:{isbn:req.body.isbn}}})
+  UserTest.findOneAndUpdate({mid:req.body.mid},{$pull:{wishlist:{isbn:req.body.book}}},{new:true})
   .then((user)=>{
       console.log("book removed");
-      res.json(user);
+      console.log(user);
+      res.json(user.wishlist);
   })
   .catch((err)=>{
       console.log("Error occurred in removing");

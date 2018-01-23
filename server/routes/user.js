@@ -24,8 +24,7 @@ router.post("/addUser",(req,res)=>{
             }
             else{
                 console.log("User Found")
-
-                res.json("User Exists")
+                res.json("Exists")
             }
         // res.json(user);
     })

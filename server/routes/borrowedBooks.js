@@ -20,11 +20,15 @@ router.put("/addBook", (req, res) => {
 // UserTest.findOneAndUpdate({ mid: req.body.mid }, {$push:{booksArray:req.body.item}}, function(err, user) {})
 .then((user)=>{
     console.log("added")
-    res.json(user.borrowedBooks); 
+    response.data=user.borrowedBooks;
+    response.message="Added to Borrowed Books"
+    res.json(response); 
 })
 .catch((error)=>{
     console.log("error")
-res.json(error)
+    response.status=400;
+    response.message="Error"
+res.json(response);
 })
 });
 
@@ -47,10 +51,16 @@ router.put("/deleteBook", (req, res) => {
     UserTest.findOneAndUpdate({mid:req.body.mid},{$pull:{borrowedBooks:{isbn:req.body.isbn}}},{new:true})
     .then((user)=>{
     console.log("removed")
-    res.json(user.borrowedBooks); 
+    response.status=200;
+    response.data=user.borrowedBooks;
+    response.message="Successfully Removed"
+    res.json(response); 
     })
     .catch((error)=>{
+        response.status=400;
+        response.message="Error"
     console.log("error")
+    res.json(response);
     });
 });
     module.exports = router;

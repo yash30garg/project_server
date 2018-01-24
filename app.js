@@ -13,8 +13,8 @@ const app = express();
 
 // API file for interacting with MongoDB
 const api = require('./server/routes/api');
-var mongoDB = 'mongodb://localhost:27017/limsTest';
-// var mongoDB = 'mongodb://mongosql.westus2.cloudapp.azure.com/lims';
+// var mongoDB = 'mongodb://localhost:27017/limsTest';
+var mongoDB = 'mongodb://mongosql.westus2.cloudapp.azure.com/lims';
 mongoose.connect(mongoDB, {
   useMongoClient: true
 });
@@ -23,7 +23,7 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const borrowedBooks=require('./server/routes/borrowedBooks');
 const user=require('./server/routes/user');
-
+const wishlist=require('./server/routes/wishlist');
 
 
 // mongoose.Promise = global.Promise;
@@ -44,9 +44,9 @@ app.use(function(req, res, next) {
 
 // API location
 app.use('/api', api);
-// app.use('/borrowedBooks', borrowedBooks);
-// app.use('/user', user);
-
+app.use('/borrowedBooks', borrowedBooks);
+app.use('/user', user);
+app.use('/wishlist',wishlist);
 // //importing route
 // var routes = require('./Routes/admin_login_Routes'); //importing route
 // routes(app); //register the route

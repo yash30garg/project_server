@@ -23,6 +23,18 @@ var UserSchema = new Schema({
     title:{
       type:String
     },
+    author:{
+      type:String
+    },
+    publisher:{
+      type:String
+    },
+    rating:{
+      type:Number
+    },
+    url:{
+      type:String
+    },
     borrowedDate:{
       type:String
     },
@@ -36,9 +48,28 @@ var UserSchema = new Schema({
   wishlist:[{
     isbn:{
       type:String
+    },
+    title:{
+      type:String
+    },
+    author:{
+      type: String
+    },
+    publisher:{
+      type:String
+    },
+    rating:{
+      type:Number
+    },
+    url:{
+      type:String
+    },
+    description:{
+      type:String
     }
   }]
 });
 
-var UserTest = mongoose.model('Users', UserSchema, 'Users' );
+// var UserTest = mongoose.model('Users', UserSchema, 'Users' );
+var UserTest = mongoose.model('Users', UserSchema, 'limsReact' );
 module.exports = UserTest;

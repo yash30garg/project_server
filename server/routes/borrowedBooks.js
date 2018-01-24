@@ -35,7 +35,9 @@ res.json(response);
 router.post("/getBooks", function (req, res, next){
     UserTest.findOne({"mid":req.body.mid})
     .then((user)=>{
-    res.json(user.borrowedBooks)
+        response.data[0]=user.borrowedBooks;
+        response.data[1]=user.wishlist;
+    res.json(response)
     })
     .catch((error)=>{
     console.log("error")

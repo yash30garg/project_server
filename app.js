@@ -24,6 +24,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 const borrowedBooks=require('./server/routes/borrowedBooks');
 const user=require('./server/routes/user');
 const wishlist=require('./server/routes/wishlist');
+const books=require('./server/routes/books');
 
 
 // mongoose.Promise = global.Promise;
@@ -47,6 +48,7 @@ app.use('/api', api);
 app.use('/borrowedBooks', borrowedBooks);
 app.use('/user', user);
 app.use('/wishlist',wishlist);
+app.use('/books',books)
 // //importing route
 // var routes = require('./Routes/admin_login_Routes'); //importing route
 // routes(app); //register the route

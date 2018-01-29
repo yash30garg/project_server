@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const  app = express();
+const passport = require('passport');
+const jwt = require('jsonwebtoken');
 var UserTest = require('../../model/userTest');
 var router=express.Router();
 var cors = require('cors');
@@ -23,7 +25,15 @@ router.post("/addUser",(req,res)=>{
             .then((user)=>{
                 console.log("created user");
                 console.log(user);
-                res.json(user)
+                const token = jwt.sign({
+                    data: user
+                }, 'secret', {expiresIn:600000}
+                )
+                res.json({
+                    success: true,
+                    token: `Bearer ${token}`,
+                    user
+                })
             })
             .catch((error)=>{
                 console.log("error");
@@ -33,7 +43,16 @@ router.post("/addUser",(req,res)=>{
             }
             else{
                 console.log("User Found")
-                res.json("Exists")
+                // res.json("Exists")
+                 const token = jwt.sign({
+                    data: user
+                }, 'secret', {expiresIn:600000}
+                )
+                res.json({
+                    success: true,
+                    token: `Bearer ${token}`,
+                    user
+                })
             }
         // res.json(user);
     })

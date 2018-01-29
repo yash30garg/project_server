@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+const passport = require('passport')
 const path = require('path');
 const http = require('http');
 const app = express();
@@ -25,7 +26,9 @@ const borrowedBooks=require('./server/routes/borrowedBooks');
 const user=require('./server/routes/user');
 const wishlist=require('./server/routes/wishlist');
 const books=require('./server/routes/books');
-
+const adminaddbook=require('./server/routes/adminaddbook');
+const admineditbook=require('./server/routes/admineditbook');
+const admindeletebook=require('./server/routes/admindeletebook');
 
 // mongoose.Promise = global.Promise;
 // mongoose.connect('mongodb://localhost:27017/limsr');
@@ -49,10 +52,19 @@ app.use('/borrowedBooks', borrowedBooks);
 app.use('/user', user);
 app.use('/wishlist',wishlist);
 app.use('/books',books)
+app.use('/addbook',adminaddbook)
+app.use('/admineditbook',admineditbook)
+app.use('/admindeletebook',admindeletebook)
 // //importing route
 // var routes = require('./Routes/admin_login_Routes'); //importing route
 // routes(app); //register the route
 
+
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./passport/config')(passport);
 
 //Set Port
 const port = process.env.PORT || '3005';

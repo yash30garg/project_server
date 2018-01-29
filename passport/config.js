@@ -1,37 +1,22 @@
-var config = {
-  databaseConfig: {
-    // MS SQL database config
-    user: "lims",
-    password: "Welcome123$",
-    server: "mongodb://mongosql.westus2.cloudapp.azure.com",
-    database: "lims",
-    options: {
-      encrypt: true // Use this if you're on Windows Azure
-    },
-    requestTimeout: 60000
-  },
-  databaseTable: "users", // Database table name to register users e.g. [dbo].[users]
-  azureApp: {
-    // Azure Application details
-    base: "https://login.microsoftonline.com/",
-    clientID: "42571f9f-768f-4d5f-8a20-b79658800949",
-    clientSecret: "42571f9f-768f-4d5f-8a20-b79658800949",
-    callbackUri: hostUrl + "/auth/cbAdfs",
-    resource: "https://graph.microsoft.com/",
-    tenant: ""
-  },
-  facebookApp: {
-    // Facebook Application details
-    clientID: "",
-    clientSecret: "",
-    callbackUrl: hostUrl + "/auth/cbFacebook"
-  },
-  googleApp: {
-    // Google Application details
-    clientID: "",
-    clientSecret: "",
-    callbackUrl: hostUrl + "/auth/cbGoogle"
-  },
-  jwtSecret: "big Secret",
-  serverPort: 8080
+var UserTest = require('../model/userTest')
+
+var JwtStrategy = require('passport-jwt').Strategy,
+    ExtractJwt = require('passport-jwt').ExtractJwt;
+    module.exports = function(passport) {
+var opts = {}
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
+opts.secretOrKey = 'secret';
+passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
+    UserTest.findOne({id: jwt_payload.data._id}, function(err, user) {
+        if (err) {
+            return done(err, false);
+        }
+        if (user) {
+            return done(null, user);
+        } else {
+            return done(null, false);
+            // or you could create a new account
+        }
+    });
+}));
 }

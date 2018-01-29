@@ -4,9 +4,11 @@ const  app = express();
 var Books = require('../../model/bookList');
 var router=express.Router();
 var cors = require('cors');
+var passport = require('passport');
 router.use(cors());
 
-router.get("/getBooks",(req,res)=>
+router.get("/getBooks",passport.authenticate('jwt',{session:false}),(req,res)=>
+// router.get("/getBooks",(req,res)=>
 {
     Books.find({}).then((books)=>
 

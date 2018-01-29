@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+const passport = require('passport')
 const path = require('path');
 const http = require('http');
 const app = express();
@@ -53,6 +54,12 @@ app.use('/books',books)
 // var routes = require('./Routes/admin_login_Routes'); //importing route
 // routes(app); //register the route
 
+
+//Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+require('./passport/config')(passport);
 
 //Set Port
 const port = process.env.PORT || '3005';

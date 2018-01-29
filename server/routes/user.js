@@ -8,6 +8,16 @@ var router=express.Router();
 var cors = require('cors');
 router.use(cors());
 
+router.get("/getUsers",(req,res)=>{
+    UserTest.find({})
+    .then((users)=>{
+        res.json(users)
+    })
+    .catch(err=>{
+        res.json(err)
+    })
+})
+
 
 router.post("/addUser",(req,res)=>{
     UserTest.find({"mid":req.body.mid})

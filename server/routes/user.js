@@ -23,7 +23,8 @@ router.post("/addUser",(req,res)=>{
                 res.json({
                     success: true,
                     token: `Bearer ${token}`,
-                    user
+                    user,
+                    status: "Exists"
                 })
             })
             .catch((error)=>{
@@ -42,7 +43,8 @@ router.post("/addUser",(req,res)=>{
                 res.json({
                     success: true,
                     token: `Bearer ${token}`,
-                    user
+                    user,
+                    status:"Exists"
                 })
             }
         // res.json(user);

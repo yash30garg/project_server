@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 
-var BookSchema = new Schema({
+var AddBookSchema = new Schema({
     isbn: {
         type: String
 
@@ -16,7 +16,7 @@ var BookSchema = new Schema({
     category: {
         type: String
     },
-    pulisher: {
+    publisher: {
         type: String
     },
     rating: {
@@ -30,25 +30,9 @@ var BookSchema = new Schema({
     },
     year: {
         type: String
-    },
-    reviews: [{
-
-        name: {
-            type: String
-        },
-
-        title: {
-            type: String
-        },
-        imageUrl: {
-            type: String
-        },
-        description: {
-            type: String
-        }
-    }]
+    }
 
 });
 
-var Books = mongoose.model('BooksDetails', BookSchema, 'Books');
-module.exports = Books;
+var AddBooks = mongoose.model('AddBooks', AddBookSchema, 'Books');
+module.exports = AddBooks;

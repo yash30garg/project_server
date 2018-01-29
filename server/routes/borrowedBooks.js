@@ -33,6 +33,7 @@ res.json(response);
 });
 
 router.post("/getBooks", function (req, res, next){
+    console.log(req.body.mid)
     UserTest.findOne({"mid":req.body.mid})
     .then((user)=>{
         response.data[0]=user.borrowedBooks;
@@ -41,6 +42,7 @@ router.post("/getBooks", function (req, res, next){
     })
     .catch((error)=>{
     console.log("error")
+    console.log(error)
     res.json(error)
     })
 });

@@ -16,14 +16,16 @@ router.post("/addBook",(req,res)=>{
                 console.log(book);
                 res.json(book)
             })
+
             .catch((error)=>{
                 console.log("error");
                 console.log(error)
                 res.json(error)
             }) 
+            
             }
             else{
-                console.log("book Found")
+                console.log("book Found in library")
                 res.json("Exists")
             }
         // res.json(user);

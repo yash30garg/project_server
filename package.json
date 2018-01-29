@@ -19,11 +19,6 @@
     "mongoose": "^5.0.0-rc2",
     "nodemon": "^1.14.11",
     "passport": "^0.4.0",
-<<<<<<< HEAD
-    "passport-oauth": "^1.0.0"
-=======
-    "passport-jwt": "^3.0.1",
-    "react-passport-auth": "^1.2.1"
->>>>>>> 9358c01410ccfaefbddaa424e38b20c410e9881c
+    "passport-jwt": "^3.0.1"
   }
 }

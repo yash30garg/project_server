@@ -63,7 +63,7 @@ app.use('/admindeletebook',admindeletebook)
 //Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
+//Import Passport Config
 require('./passport/config')(passport);
 
 //Set Port

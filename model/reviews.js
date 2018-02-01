@@ -12,6 +12,9 @@ var ReviewSchema = new Schema({
         title:{
             type:String
         },
+        rating:{
+            type:Number
+        },
         description:{
             type:String
         }

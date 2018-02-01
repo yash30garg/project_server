@@ -18,6 +18,28 @@ router.get("/getUsers",(req,res)=>{
     })
 })
 
+router.post("/findUser",(req,res)=>{
+    UserTest.find({email:req.body.email})
+    .then((user)=>{
+        if(user.length===1)
+        res.json(user)
+        else
+        res.json('No User Present')
+    })
+    .catch(err=>{
+        res.json(err)
+    })
+})
+
+router.put("/editRole",(req,res)=>{
+    UserTest.findOneAndUpdate({email:req.body.email},{role:req.body.role})
+    .then((user)=> {
+        res.json("Done")
+    }).catch((error)=> {
+        res.json("Error")
+    })
+})
+
 
 router.post("/addUser",(req,res)=>{
     UserTest.find({"mid":req.body.mid})
@@ -25,8 +47,6 @@ router.post("/addUser",(req,res)=>{
         if(user.length===0){
             UserTest.create({"mid":req.body.mid,"name":req.body.name,"email":req.body.email,"role":req.body.role,"borrowedBooks":req.body.borrowedBooks,"wishlist":req.body.wishlist})
             .then((user)=>{
-                console.log("created user");
-                console.log(user);
                 const token = jwt.sign({
                     data: user
                 }, 'secret', {expiresIn:600000}
@@ -39,13 +59,10 @@ router.post("/addUser",(req,res)=>{
                 })
             })
             .catch((error)=>{
-                console.log("error");
-                console.log(error)
                 res.json(error)
             }) 
             }
             else{
-                console.log("User Found")
                 // res.json("Exists")
                  const token = jwt.sign({
                     data: user

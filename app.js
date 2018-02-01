@@ -26,6 +26,7 @@ const borrowedBooks=require('./server/routes/borrowedBooks');
 const user=require('./server/routes/user');
 const wishlist=require('./server/routes/wishlist');
 const books=require('./server/routes/books');
+// const addRev=require('./server/routes/reviews');
 const adminaddbook=require('./server/routes/adminaddbook');
 const admineditbook=require('./server/routes/admineditbook');
 const admindeletebook=require('./server/routes/admindeletebook');
@@ -55,6 +56,7 @@ app.use('/books',books)
 app.use('/addbook',adminaddbook)
 app.use('/admineditbook',admineditbook)
 app.use('/admindeletebook',admindeletebook)
+// app.use('/addReview',addRev)
 // //importing route
 // var routes = require('./Routes/admin_login_Routes'); //importing route
 // routes(app); //register the route
@@ -63,7 +65,7 @@ app.use('/admindeletebook',admindeletebook)
 //Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
+//Import Passport Config
 require('./passport/config')(passport);
 
 //Set Port

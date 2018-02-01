@@ -10,13 +10,10 @@ router.put("/removeBook",(req,res)=>{
   AddBooks.deleteOne({"isbn":req.body.isbn})
 
   .then((book)=>{
-      console.log("book removed");
-      console.log(book)
       res.json("Book Deleted");
   })
   
   .catch((err)=>{
-      console.log("Error occurred in removing");
       res.json(err);
   })
 });

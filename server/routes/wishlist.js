@@ -10,11 +10,9 @@ router.use(cors());
 router.put("/addWBook",(req,res)=>{
   UserTest.findOneAndUpdate({mid:req.body.mid},{$push:{wishlist:req.body.book}},{new:true})
   .then((user)=>{
-      console.log("added Book");
       res.json(user.wishlist);
   })  
   .catch((err)=>{
-      console.log("Error occurred");
       res.json(err);
   })
 });
@@ -25,12 +23,9 @@ router.put("/addWBook",(req,res)=>{
 router.put("/removeWishBook",(req,res)=>{
   UserTest.findOneAndUpdate({mid:req.body.mid},{$pull:{wishlist:{isbn:req.body.book}}},{new:true})
   .then((user)=>{
-      console.log("book removed");
-      console.log(user);
       res.json(user.wishlist);
   })
   .catch((err)=>{
-      console.log("Error occurred in removing");
       res.json(err);
   })
 });

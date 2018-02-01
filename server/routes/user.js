@@ -21,7 +21,6 @@ router.get("/getUsers",(req,res)=>{
 router.post("/findUser",(req,res)=>{
     UserTest.find({email:req.body.email})
     .then((user)=>{
-        console.log(user)
         if(user.length===1)
         res.json(user)
         else
@@ -48,8 +47,6 @@ router.post("/addUser",(req,res)=>{
         if(user.length===0){
             UserTest.create({"mid":req.body.mid,"name":req.body.name,"email":req.body.email,"role":req.body.role,"borrowedBooks":req.body.borrowedBooks,"wishlist":req.body.wishlist})
             .then((user)=>{
-                console.log("created user");
-                console.log(user);
                 const token = jwt.sign({
                     data: user
                 }, 'secret', {expiresIn:600000}
@@ -62,13 +59,10 @@ router.post("/addUser",(req,res)=>{
                 })
             })
             .catch((error)=>{
-                console.log("error");
-                console.log(error)
                 res.json(error)
             }) 
             }
             else{
-                console.log("User Found")
                 // res.json("Exists")
                  const token = jwt.sign({
                     data: user

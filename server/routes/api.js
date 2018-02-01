@@ -107,11 +107,9 @@ router.post('/', function (req, res, next) {
                 .toArray()
                 .then((aa) => {
                     if(aa!="") {
-                    console.log(aa)
                     response.data = aa;
                     response.status = 200;
-                    response.message = "success"
-                    console.log(response)
+                    response.message = "success";
                     res.json(response)
                     // res.redirect('http://localhost:3001/#/home')
                 }

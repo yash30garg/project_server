@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser')
 const  app = express();
 var UserTest = require('../../model/userTest');
+var Reviews = require('../../model/reviews');
 var Books = require('../../model/bookList')
 var router=express.Router();
 var cors = require('cors');
@@ -81,6 +82,7 @@ router.put("/add",(req,res)=>{
         if(book==null){
             Reviews.create({isbn:req.body.isbn,reviews:req.body.item})
             .then((book)=>{
+                console.log("created")
                 res.json(book)
             })
             .catch((err)=>{
@@ -90,6 +92,7 @@ router.put("/add",(req,res)=>{
         else{
             Reviews.findOneAndUpdate({isbn:req.body.isbn},{$push:{reviews:req.body.item}},{new:true})
             .then((newbook)=>{
+                console.log("updated")
                 res.json(newbook)
             })
             .catch((err)=>{

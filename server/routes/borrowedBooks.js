@@ -75,6 +75,32 @@ router.put("/renew",(req,res)=>{
     })
 })
 
+router.put("/add",(req,res)=>{
+    Reviews.findOne({isbn:req.body.isbn})
+    .then((book)=>{
+        if(book==null){
+            Reviews.create({isbn:req.body.isbn,reviews:req.body.item})
+            .then((book)=>{
+                res.json(book)
+            })
+            .catch((err)=>{
+                res.json(err)
+            })
+        }
+        else{
+            Reviews.findOneAndUpdate({isbn:req.body.isbn},{$push:{reviews:req.body.item}},{new:true})
+            .then((newbook)=>{
+                res.json(newbook)
+            })
+            .catch((err)=>{
+                res.json(err)
+            })
+        }
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+})
 router.put("/deleteBook", (req, res) => {
     // console.log(req.body)
     // UserTest.findOneAndUpdate({mid:req.body.mid},{$pull:{booksArray:{details:{title:"New Book"}}}},{ multi: true })

@@ -56,7 +56,24 @@ router.post("/getBooks", function (req, res, next){
     })
 });
 
-
+router.put("/renew",(req,res)=>{
+    UserTest.findOneAndUpdate({mid:req.body.mid},{$pull:{borrowedBooks:{isbn:req.body.isbn}}},{new:true}) 
+    .then((user)=>{
+        UserTest.findOneAndUpdate({mid:req.body.mid},{$push:{borrowedBooks:req.body.item}},{new:true})
+        .then((user)=>{
+        console.log("updated")
+        res.json(user);
+        })
+        .catch((err)=>{
+            console.log("update error")
+            res.json(err)
+        })
+    })
+    .catch((err)=>{
+        console.log("find err");
+        res.json(err)
+    })
+})
 
 router.put("/deleteBook", (req, res) => {
     // console.log(req.body)

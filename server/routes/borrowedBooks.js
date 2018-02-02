@@ -29,6 +29,16 @@ res.json(response);
 })
 });
 
+router.post("/getReviews",(req,res)=>{
+    Reviews.find({isbn:req.body.isbn})
+    .then((data)=>{
+        console.log(data[0].reviews);
+        res.json(data);
+    })
+    .catch((err)=>{
+        res.json(err)
+    })
+})
 router.post("/getBooks", function (req, res, next){
     UserTest.findOne({"mid":req.body.mid})
     .then((user)=>{
@@ -62,7 +72,7 @@ router.put("/add",(req,res)=>{
         if(book==null){
             Reviews.create({isbn:req.body.isbn,reviews:req.body.item})
             .then((book)=>{
-                res.json(book)
+                res.json(book.reviews)
             })
             .catch((err)=>{
                 res.json(err)
@@ -71,7 +81,7 @@ router.put("/add",(req,res)=>{
         else{
             Reviews.findOneAndUpdate({isbn:req.body.isbn},{$push:{reviews:req.body.item}},{new:true})
             .then((newbook)=>{
-                res.json(newbook)
+                res.json(newbook.reviews)
             })
             .catch((err)=>{
                 res.json(err)

@@ -9,6 +9,10 @@ var ReviewSchema = new Schema({
         mid:{
             type: String
         },
+        name:
+        {
+            type:String
+        },
         title:{
             type:String
         },

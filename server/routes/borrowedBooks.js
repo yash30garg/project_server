@@ -30,10 +30,14 @@ res.json(response);
 });
 
 router.post("/getReviews",(req,res)=>{
-    Reviews.find({isbn:req.body.isbn})
+    Reviews.findOne({isbn:req.body.isbn})
     .then((data)=>{
-        console.log(data[0].reviews);
-        res.json(data);
+        if(data===null){
+            res.json(null)
+        }
+        else{
+        res.json(data.reviews);
+        }
     })
     .catch((err)=>{
         res.json(err)
